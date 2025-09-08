@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  padding: 1rem;
+}
+
+.highcharts-figure {
+  width: 100%;
+  height: 100%;
+}

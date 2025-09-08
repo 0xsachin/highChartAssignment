@@ -1,0 +1,107 @@
+<div style="width: 100%;height: 100%;display: flex;">
+  <div style="width: 85%;height: 100%;">
+    <highcharts-chart
+      [Highcharts]="Highcharts"
+      [options]="chartOptions"
+      style="width: 100%; height: 600px; display: block;"
+    ></highcharts-chart>    
+  </div>
+  <div style="width: 15%;height: 100%;">
+    <div style="height: 30px;display: flex; border-bottom: 1px slategrey solid;" >
+      <div style="width: 10%;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 124" width="20" height="20" fill="none">
+            <rect width="124" height="124" rx="24" fill="#F97316"/>
+            <path d="M19.375 36.7818V100.625C19.375 102.834 21.1659 104.625 23.375 104.625H87.2181C90.7818 104.625 92.5664 100.316 90.0466 97.7966L26.2034 33.9534C23.6836 31.4336 19.375 33.2182 19.375 36.7818Z" fill="white"/>
+            <circle cx="63.2109" cy="37.5391" r="18.1641" fill="black"/>
+            <rect opacity="0.4" x="81.1328" y="80.7198" width="17.5687" height="17.3876" rx="4" transform="rotate(-45 81.1328 80.7198)" fill="#FDBA74"/>
+        </svg>
+      </div>
+      <div style="height: 25px; width: 90%; padding-left:10px">
+          <h4 style="font-weight: 100;margin: 0;">Observations</h4>
+      </div>
+    </div>
+    
+    <div id="legendArr1" style="height: auto;">
+      @for (arr of legendArr1; track arr; let i = $index; let last = $last) {
+        <div style="display: flex; align-items: center; padding: 2px 0; line-height: 1;" [ngStyle]="{ 'border-bottom': last ? '1px solid slategrey' : '' }">
+          <div style="width: 10%; display: flex; justify-content: center; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 124" width="8" height="8" fill="none">
+                <rect width="124" height="124" rx="24" fill="#F97316"/>
+                <path d="M19.375 36.7818V100.625C19.375 102.834 21.1659 104.625 23.375 104.625H87.2181C90.7818 104.625 92.5664 100.316 90.0466 97.7966L26.2034 33.9534C23.6836 31.4336 19.375 33.2182 19.375 36.7818Z" fill="white"/>
+                <circle cx="63.2109" cy="37.5391" r="18.1641" fill="black"/>
+                <rect opacity="0.4" x="81.1328" y="80.7198" width="17.5687" height="17.3876" rx="4" transform="rotate(-45 81.1328 80.7198)" fill="#FDBA74"/>
+            </svg>
+          </div>
+          <div style="font-size: 10px; margin: 0; padding: 0;opacity: 0.8;">
+            {{ arr.title }}
+          </div>
+        </div>
+      }
+    </div>
+
+    <div id="legendArr2" style="height: auto;">
+      @for (arr of legendArr2; track arr; let i = $index; let last = $last) {
+        <div style="display: flex; align-items: center; padding: 2px 0; line-height: 1;" [ngStyle]="{ 'border-bottom': last ? '1px solid slategrey' : '' }">
+          <div style="width: 10%; display: flex; justify-content: center; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 124" width="8" height="8" fill="none">
+                <rect width="124" height="124" rx="24" fill="#F97316"/>
+                <path d="M19.375 36.7818V100.625C19.375 102.834 21.1659 104.625 23.375 104.625H87.2181C90.7818 104.625 92.5664 100.316 90.0466 97.7966L26.2034 33.9534C23.6836 31.4336 19.375 33.2182 19.375 36.7818Z" fill="white"/>
+                <circle cx="63.2109" cy="37.5391" r="18.1641" fill="black"/>
+                <rect opacity="0.4" x="81.1328" y="80.7198" width="17.5687" height="17.3876" rx="4" transform="rotate(-45 81.1328 80.7198)" fill="#FDBA74"/>
+            </svg>
+          </div>
+          <div style="font-size: 10px; margin: 0; padding: 0;opacity: 0.8;">
+            {{ arr.title }}
+          </div>
+        </div>
+      }
+    </div>
+
+    <div id="legendArr3" style="height: auto;">
+      @for (arr of legendArr3; track arr; let i = $index; let last = $last) {
+        <div style="display: flex; align-items: center; padding: 2px 0; line-height: 1;" [ngStyle]="{ 'border-bottom': last ? '1px solid slategrey' : '' }">
+          <div style="width: 10%; display: flex; justify-content: center; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 124" width="8" height="8" fill="none">
+                <rect width="124" height="124" rx="24" fill="#F97316"/>
+                <path d="M19.375 36.7818V100.625C19.375 102.834 21.1659 104.625 23.375 104.625H87.2181C90.7818 104.625 92.5664 100.316 90.0466 97.7966L26.2034 33.9534C23.6836 31.4336 19.375 33.2182 19.375 36.7818Z" fill="white"/>
+                <circle cx="63.2109" cy="37.5391" r="18.1641" fill="black"/>
+                <rect opacity="0.4" x="81.1328" y="80.7198" width="17.5687" height="17.3876" rx="4" transform="rotate(-45 81.1328 80.7198)" fill="#FDBA74"/>
+            </svg>
+          </div>
+          <div style="font-size: 10px; margin: 0; padding: 0;opacity: 0.8;">
+            {{ arr.title }}
+          </div>
+        </div>
+      }
+    </div>
+
+
+    <div id="legendArr4" style="height: auto;">
+      @for (arr of legendArr4; track arr; let i = $index; let last = $last) {
+        <div style="display: flex; align-items: center; padding: 2px 0; line-height: 1;" [ngStyle]="{ 'border-bottom': last ? '1px solid slategrey' : '' }">
+          <div style="width: 10%; display: flex; justify-content: center; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 124" width="8" height="8" fill="none">
+                <rect width="124" height="124" rx="24" fill="#F97316"/>
+                <path d="M19.375 36.7818V100.625C19.375 102.834 21.1659 104.625 23.375 104.625H87.2181C90.7818 104.625 92.5664 100.316 90.0466 97.7966L26.2034 33.9534C23.6836 31.4336 19.375 33.2182 19.375 36.7818Z" fill="white"/>
+                <circle cx="63.2109" cy="37.5391" r="18.1641" fill="black"/>
+                <rect opacity="0.4" x="81.1328" y="80.7198" width="17.5687" height="17.3876" rx="4" transform="rotate(-45 81.1328 80.7198)" fill="#FDBA74"/>
+            </svg>
+          </div>
+          <div style="font-size: 10px; margin: 0; padding: 0;opacity: 0.8;">
+            {{ arr.title }}
+          </div>
+        </div>
+      }
+    </div>    
+  </div>
+</div>
+
+
+<ng-template #svgRef>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 124" width="20" height="20" fill="none">
+    <rect width="124" height="124" rx="24" fill="#F97316"/>
+    <path d="M19.375 36.7818V100.625C19.375 102.834 21.1659 104.625 23.375 104.625H87.2181C90.7818 104.625 92.5664 100.316 90.0466 97.7966L26.2034 33.9534C23.6836 31.4336 19.375 33.2182 19.375 36.7818Z" fill="white"/>
+    <circle cx="63.2109" cy="37.5391" r="18.1641" fill="black"/>
+    <rect opacity="0.4" x="81.1328" y="80.7198" width="17.5687" height="17.3876" rx="4" transform="rotate(-45 81.1328 80.7198)" fill="#FDBA74"/>
+  </svg>
+</ng-template>
