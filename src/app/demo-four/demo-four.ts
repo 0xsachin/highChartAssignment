@@ -41,49 +41,35 @@ export class DemoFour {
     const minTime = Date.UTC(2025, 8, 9, 0, 0);   // 00:00
     const maxTime = Date.UTC(2025, 8, 9, 23, 59); // 23:59
 
-    // Get current UTC time and round down to the hour
-const now = new Date();
-const currentUtcHour = Date.UTC(
-  now.getUTCFullYear(),
-  now.getUTCMonth(),
-  now.getUTCDate(),
-  now.getUTCHours()
-);
+    // Calculate the timestamp for 2 PM UTC
+    const givenData = Date.UTC(2025, 8, 9, 11, 0); // from where we want to start the graph
 
-// Start 3 ticks (3 hours) before
-const visibleMin = currentUtcHour - (3 * 3600 * 1000); // 3 hours back
-const visibleMax = visibleMin + (6 * 3600 * 1000); // 6 hours forward = 7 ticks (every hour)
+    // Calculate the visible range (you can set this as per your needs)
+    const visibleMin = givenData;
+    const visibleMax = givenData + (6 * 3600 * 1000); // Show 6 hours forward (until 8 PM)
 
     // 3️⃣ Chart config
     this.chartOptions = {
       chart: {
         type: 'line',
         height: 400,
-      //   scrollablePlotArea: {
-      //     minWidth: 2400, // enough to show all 24 ticks clearly
-      //     scrollPositionX: (visibleMin - minTime) / (maxTime - minTime),
-      //   },
         scrollablePlotArea: {
-    minWidth: 1000,  // decrease from 2400 or 1200
-    scrollPositionX: 0
-  },
+          minWidth: window.innerWidth < 768 ? 600 : 1000,  // Adjust based on screen size
+          scrollPositionX: 0  // This makes sure the scroll starts from the left
+        },
         panning: {
           enabled: true,
           type: 'x'
-        },
+        }
       },
       title: { text: 'Glucose (5-min interval)' },
       xAxis: [{
         tickInterval: 3600 * 1000, // 1 hour in milliseconds
-
         type: 'datetime',
-//   min: visibleMin,
-//   max: visibleMax,
-//   tickAmount: 7,
-  scrollbar: { enabled: false },
-  startOnTick: false,
-  endOnTick: false,
-
+        min: visibleMin,  // Start the graph from 2 PM
+        scrollbar: { enabled: true }, // Enable scrollbar
+        startOnTick: false,
+        endOnTick: false,
         labels: {
           useHTML: true,
           formatter: function (): any {
@@ -97,12 +83,14 @@ const visibleMax = visibleMin + (6 * 3600 * 1000); // 6 hours forward = 7 ticks 
                            <div>${hour12}</div>`;
 
             if (window.innerWidth < 768) {
+              // Mobile-specific label logic
               if ([3, 6, 9, 12].includes(hour12)) {
                 label += `<div style="font-size:10px">${ampm}</div>`;
               } else {
                 label += `<div style="font-size:10px">&nbsp;</div>`;
               }
             } else {
+              // Desktop-specific label logic
               label += `<div style="font-size:10px">${ampm}</div>`;
             }
 
