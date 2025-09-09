@@ -4,7 +4,8 @@ import HCData from 'highcharts/modules/data';
 import { HighchartsChartModule } from 'highcharts-angular';
 import HighchartsMore from 'highcharts/highcharts-more';
 import HCExporting from 'highcharts/modules/exporting';
-
+// import DraggablePoints from 'highcharts/modules/draggable-points';
+// DraggablePoints(Highcharts);
 HighchartsMore(Highcharts);
 HCExporting(Highcharts);
 
@@ -38,38 +39,62 @@ export class DemoFour {
       d.sg
     ]);
 
-    const minTime = Date.UTC(2025, 8, 9, 0, 0);   // 00:00
-    const maxTime = Date.UTC(2025, 8, 9, 23, 59); // 23:59
-
     // Calculate the timestamp for 2 PM UTC
-    const givenData = Date.UTC(2025, 8, 9, 11, 0); // from where we want to start the graph
+    // const givenStartData = Date.UTC(2025, 8, 9, 15, 0); // from where we want to start the graph
+    const now = new Date();
+    const givenStartData = Date.UTC(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      now.getHours(),
+      0, 0
+    ); // current hour, UTC
 
-    // Calculate the visible range (you can set this as per your needs)
-    const visibleMin = givenData;
-    const visibleMax = givenData + (6 * 3600 * 1000); // Show 6 hours forward (until 8 PM)
+    const givenEndData = givenStartData // End of actual data (18:00 UTC)
+
+
+    // Show 3 hours *backward* from givenData
+    const visibleMin = givenStartData - (3 * 3600 * 1000); // 08:00 UTC
+    const visibleMax = givenEndData + (4 * 3600 * 1000); // 08:00 UTC
+
 
     // 3️⃣ Chart config
     this.chartOptions = {
       chart: {
         type: 'line',
         height: 400,
-        scrollablePlotArea: {
-          minWidth: window.innerWidth < 768 ? 600 : 1000,  // Adjust based on screen size
-          scrollPositionX: 0  // This makes sure the scroll starts from the left
-        },
         panning: {
           enabled: true,
-          type: 'x'
-        }
+          type: 'x',
+        },
+        panKey: 'none' as any, // 👈 avoids TypeScript error
+        // panKey: undefined // ✅ Drag with finger or mouse directly
+        zooming: {
+          type: 'x' // ✅ Enables panning & pinch zoom
+        },
+
       },
-      title: { text: 'Glucose (5-min interval)' },
+      title: { 
+        text: 'show start end within given range when page load',
+        style: {
+          fontSize: '10px' // or any size you prefer
+        } 
+      },
+      exporting: {    // to hide context menu
+        enabled: false
+      },
+      tooltip: {
+        followTouchMove: false // Crucial: allows one-finger panning on mobile
+      },
       xAxis: [{
         tickInterval: 3600 * 1000, // 1 hour in milliseconds
         type: 'datetime',
-        min: visibleMin,  // Start the graph from 2 PM
-        scrollbar: { enabled: true }, // Enable scrollbar
+        min: visibleMin,  
+        max: visibleMax,
+        scrollbar: { enabled: false }, // Enable scrollbar
         startOnTick: false,
         endOnTick: false,
+        
         labels: {
           useHTML: true,
           formatter: function (): any {
@@ -101,6 +126,9 @@ export class DemoFour {
       yAxis: {
         min: 2.2,
         max: 22.2,
+        opposite: true,
+        lineWidth: 1,
+        gridLineWidth: 1,
         title: { text: 'mmol/l' },
         plotBands: [{
           from: 3.9,
@@ -116,7 +144,13 @@ export class DemoFour {
         data: glucoseData,
         lineWidth: 2,
         color: '#000000',
-        marker: { enabled: false }
+        marker: { enabled: false },
+        enableMouseTracking: true, // ✅ Prevent tooltips/hover on points
+        // dragDrop: {
+        //     draggableX: true, // Enable dragging on the X-axis
+        //     draggableY: true, // Enable dragging on the Y-axis
+        // }
+
       }]
     };
   }
