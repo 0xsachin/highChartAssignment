@@ -26,50 +26,8 @@ export class DemoFour {
 
     // 1️⃣ Generate 288 points (5 min interval over 24 hours)
 
-    // const startDate = Date.UTC(2025, 8, 11, 0, 0); // 00:00 UTC
-    // const endDate = Date.UTC(2025, 8, 11, 23, 55); // 23:55 UTC
-
-    // for current date and hour
-    // const nowDate = new Date();
-    // const startDate:any = Date.UTC(
-    //   nowDate.getFullYear(),
-    //   nowDate.getMonth(),
-    //   nowDate.getDate(),
-    //   0,
-    //   0, 
-    //   0
-    // ); // current hour, UTC
-
-    // const endDate:any = Date.UTC(
-    //   nowDate.getFullYear(),
-    //   nowDate.getMonth(),
-    //   nowDate.getDate(),
-    //   23,
-    //   55, 
-    //   0
-    // ); // current hour, UTC
-
-    // const sgVal: { sg: number; ts: number }[] = [];
-
-    // for (let i = 0; i < 288; i++) {
-    //   const tsSec = startDate + i * 300000; // add 5 minutes in milliseconds
-    //   sgVal.push({
-    //     sg: Math.random() * 10 + 3,
-    //     ts: tsSec
-    //   });
-    // }
-
-    // // 2️⃣ Convert to Highcharts format
-    // const glucoseData: [number, number][] = sgVal.map(d => [
-    //   d.ts , // seconds → milliseconds
-    //   d.sg
-    // ]);
-    // console.log("glucoseData-->",glucoseData)
-/////////////////////////////////////////////////////////////////////////////////////////////////////    
-//////below block give me same sg value everty time after run prog for 24 object(1 obj per hrs)//////////
-    
-    const startDate = Date.UTC(2025, 8, 15, 0, 0); // for fix date
-    const endDate = Date.UTC(2025, 8, 15, 23, 55); // 23:55 UTC
+    const startDate = Date.UTC(2025, 8, 23, 0, 0); // 00:00 UTC
+    const endDate = Date.UTC(2025, 8, 23, 23, 55); // 23:55 UTC
 
     // for current date and hour
     // const nowDate = new Date();
@@ -93,26 +51,68 @@ export class DemoFour {
 
     const sgVal: { sg: number; ts: number }[] = [];
 
-    for (let i = 0; i < 24; i++) {
-      // this method convert local time zone to UTC time zone
-      // const tsMs = this.returnConvertedDateTimeZone(startDate + i * 3600000).getTime(); // every 1 hour
-
-      const tsMs = startDate + i * 3600000; // every 1 hour
-
-      // deterministic glucose value: sine wave oscillation between 4 and 12
-      const sg = 8 + 4 * Math.sin(i * (Math.PI / 12)); 
-
+    for (let i = 0; i < 288; i++) {
+      const tsSec = startDate + i * 300000; // add 5 minutes in milliseconds
       sgVal.push({
-        sg: parseFloat(sg.toFixed(2)), // keep 2 decimals
-        ts: tsMs
+        sg: Math.random() * 10 + 3,
+        ts: tsSec
       });
     }
 
-    // Convert to Highcharts format
+    // 2️⃣ Convert to Highcharts format
     const glucoseData: [number, number][] = sgVal.map(d => [
-      d.ts, // timestamp in ms
+      d.ts , // seconds → milliseconds
       d.sg
     ]);
+    console.log("glucoseData-->",glucoseData)
+/////////////////////////////////////////////////////////////////////////////////////////////////////    
+//////below block give me same sg value everty time after run prog for 24 object(1 obj per hrs)//////////
+    
+    // const startDate = Date.UTC(2025, 8, 23, 0, 0); // for fix date
+    // const endDate = Date.UTC(2025, 8, 23, 23, 59); // 23:55 UTC
+
+    // // for current date and hour
+    // // const nowDate = new Date();
+    // // const startDate:any = Date.UTC(
+    // //   nowDate.getFullYear(),
+    // //   nowDate.getMonth(),
+    // //   nowDate.getDate(),
+    // //   0,
+    // //   0, 
+    // //   0
+    // // ); // current hour, UTC
+
+    // // const endDate:any = Date.UTC(
+    // //   nowDate.getFullYear(),
+    // //   nowDate.getMonth(),
+    // //   nowDate.getDate(),
+    // //   23,
+    // //   55, 
+    // //   0
+    // // ); // current hour, UTC
+
+    // const sgVal: { sg: number; ts: number }[] = [];
+
+    // for (let i = 0; i < 25; i++) {
+    //   // this method convert local time zone to UTC time zone
+    //   // const tsMs = this.returnConvertedDateTimeZone(startDate + i * 3600000).getTime(); // every 1 hour
+
+    //   const tsMs = startDate + i * 3600000; // every 1 hour
+
+    //   // deterministic glucose value: sine wave oscillation between 4 and 12
+    //   const sg = 8 + 4 * Math.sin(i * (Math.PI / 12)); 
+
+    //   sgVal.push({
+    //     sg: parseFloat(sg.toFixed(2)), // keep 2 decimals
+    //     ts: tsMs
+    //   });
+    // }
+
+    // // Convert to Highcharts format
+    // const glucoseData: [number, number][] = sgVal.map(d => [
+    //   d.ts, // timestamp in ms
+    //   d.sg
+    // ]);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -144,6 +144,8 @@ export class DemoFour {
       chart: {
         type: 'line',
         height: 400,
+        width: null,
+        marginRight: 48,
         panning: {
           enabled: true,
           type: (this.windowWidth < 760) ? 'x' : undefined,
